@@ -1,0 +1,20 @@
+{
+  "condition_entries": 21,
+  "total_cues": 498,
+  "slots": [
+    "atmospheric_effects",
+    "global",
+    "lighting",
+    "objects_details",
+    "surfaces"
+  ],
+  "groups": [
+    "condition",
+    "environment",
+    "season",
+    "time_of_day",
+    "weather"
+  ],
+  "max_cues_per_slot": 6,
+  "max_cues_retrieved": 50
+}

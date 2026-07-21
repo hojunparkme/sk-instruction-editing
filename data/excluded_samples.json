@@ -1,0 +1,30 @@
+{
+  "flux_excluded_from_clipdir": [
+    {
+      "hash": "17f9a096dbe47d96d42426bcfa611f6c_810c1d5d74702298fb1ec78f77bb929726799faa6f119a7af5a4f6932b1196be",
+      "condition": "rainy",
+      "input_caption": "a train station in the city",
+      "output_caption": "a train station in the city",
+      "reason": "input_caption == output_caption (no text-space direction)"
+    },
+    {
+      "hash": "0ec1f6527ebe44c6cc48639d70ffa41d_5cc8c9d391fa92b7e669be1f299ba7960aed7507a7e3c13e914b394445fdf2fb",
+      "condition": "foggy",
+      "input_caption": "a train station in the city",
+      "output_caption": "a train station in the city",
+      "reason": "input_caption == output_caption (no text-space direction)"
+    },
+    {
+      "hash": "75d0b7a5c7895d9321c620e2dabd871f_0d4111d1e688698bcb737f1a8a5085de9c35fed8c9e64a3f24d312a5ddcf5c91",
+      "condition": "snowy",
+      "input_caption": "a train station in city",
+      "output_caption": "a train station in city",
+      "reason": "input_caption == output_caption (no text-space direction)"
+    }
+  ],
+  "flux_total": 110,
+  "flux_clipdir_valid": 107,
+  "ip2p_total": 128,
+  "ip2p_clipdir_valid": 99,
+  "note": "CLIPout/CLIPim/L1/DINO use all samples; CLIPdir excludes samples with no defined text direction."
+}

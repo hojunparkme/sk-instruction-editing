@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+
+# large or non-redistributable artifacts
+models/
+results/**/*_images/
+results/**/*.png
+*.pt
+*.safetensors
+
+# scratch
+*.before_*.json
+cache.json

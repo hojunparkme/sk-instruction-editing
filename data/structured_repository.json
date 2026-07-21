@@ -1,0 +1,982 @@
+{
+  "condition": {
+    "fog": {
+      "positives": {
+        "global": [
+          "dense fog filling scene",
+          "extremely low fog visibility",
+          "white haze permeating air",
+          "thick atmospheric fog effect",
+          "fog obscuring background objects",
+          "gray white misty scene"
+        ],
+        "atmospheric_effects": [
+          "halos visible around lights in fog",
+          "fog diffusing all light evenly",
+          "morning fog rolling in slowly",
+          "fog condensation on surfaces",
+          "indistinct edges in heavy fog",
+          "ghostly fog appearance overall"
+        ],
+        "lighting": [
+          "soft halo surrounding every light source",
+          "no hard shadows visible anywhere in fog",
+          "diffused ambient light with no direction",
+          "milky white light quality throughout scene",
+          "headlights creating visible cone of light in fog",
+          "streetlamps barely piercing thick fog layer"
+        ],
+        "surfaces": [
+          "wet road surface from fog condensation",
+          "damp pavement glistening in foggy air",
+          "moisture beading on all cold surfaces",
+          "slick road surface from heavy persistent mist"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "mist",
+        "low visibility",
+        "thick fog",
+        "misty",
+        "smoggy",
+        "hazy",
+        "foggy",
+        "haze",
+        "murky"
+      ]
+    },
+    "night": {
+      "positives": {
+        "global": [
+          "complete nighttime darkness scene",
+          "only artificial light visible",
+          "deep shadow night environment",
+          "nighttime urban atmosphere",
+          "very dark outdoor night scene",
+          "low light nighttime condition"
+        ],
+        "atmospheric_effects": [
+          "night sky stars clearly visible",
+          "moonlight casting pale glow",
+          "streetlamp illuminating dark road",
+          "car headlights piercing darkness",
+          "night mist under artificial lights",
+          "quiet shadowy night street"
+        ],
+        "lighting": [
+          "sodium vapor streetlamp casting orange glow",
+          "LED headlights casting blue-white beam forward",
+          "moonlight creating soft silver highlights on surfaces",
+          "traffic lights casting colored pools on wet ground",
+          "neon sign illuminating nearby surfaces with color",
+          "lit window casting warm rectangle on pavement below"
+        ],
+        "surfaces": [
+          "wet road reflecting streetlight colors at night",
+          "dark pavement absorbing all ambient light",
+          "puddle mirroring streetlamp directly above",
+          "frost glinting under artificial light source"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "gloomy",
+        "dark outside",
+        "pitch black",
+        "night time",
+        "nighttime",
+        "nightfall",
+        "midnight",
+        "dusk",
+        "dark night",
+        "dark",
+        "after dark",
+        "after sunset"
+      ]
+    },
+    "rain": {
+      "positives": {
+        "global": [
+          "heavy rain storm event",
+          "strong rainfall from storm clouds",
+          "intense rain soaking everything",
+          "rain storm reducing visibility",
+          "dark wet stormy environment",
+          "powerful rain falling fast"
+        ],
+        "atmospheric_effects": [
+          "rain bouncing off hard surfaces",
+          "drain overflowing with rain",
+          "rain hitting leaves audibly",
+          "windshield wipers moving fast",
+          "lightning flash in storm sky",
+          "thunder storm above scene"
+        ],
+        "lighting": [
+          "diffused gray light from heavy storm clouds",
+          "no direct sunlight penetrating thick cloud cover",
+          "dim ambient light reducing overall scene visibility",
+          "lightning flash briefly illuminating entire scene",
+          "wet surfaces creating bright mirror-like reflections"
+        ],
+        "surfaces": [
+          "road covered in flowing sheets of water",
+          "puddles rippling continuously from raindrops impact",
+          "mud splashing from passing vehicle tires",
+          "wet grass completely flattened by sustained heavy rain",
+          "waterlogged soil visible at all scene edges"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "downpour",
+        "stormy",
+        "wet weather",
+        "rainstorm",
+        "drizzle",
+        "precipitating",
+        "rain storm",
+        "shower",
+        "pouring",
+        "sprinkling",
+        "raining",
+        "rainfall"
+      ]
+    },
+    "snow": {
+      "positives": {
+        "global": [
+          "heavy snowfall event ongoing",
+          "thick snow accumulation everywhere",
+          "snow blanketing entire landscape",
+          "deep snow covering all surfaces",
+          "snowstorm with heavy flakes",
+          "intense snow weather condition"
+        ],
+        "atmospheric_effects": [
+          "snowdrifts piling against walls",
+          "snow weighing down tree branches",
+          "ski tracks left in deep snow",
+          "snowman built in yard area",
+          "snow blowing sideways in wind",
+          "fresh powder snow on ground"
+        ],
+        "lighting": [
+          "flat white diffused light from snow cover",
+          "snow brightening entire scene uniformly",
+          "cold blue tint visible in all snow shadow areas",
+          "overcast sky reflecting off white snow surface",
+          "headlights illuminating individual falling snowflakes"
+        ],
+        "surfaces": [
+          "tire tracks pressed deep into fresh snow",
+          "footprints left clearly in soft snow layer",
+          "snow piled against curb and obstacles",
+          "ice sheet forming visibly on road surface",
+          "slush pooling at road and curb edges"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "wintry",
+        "snow storm",
+        "snowfall",
+        "snow covered",
+        "snowed in",
+        "icy",
+        "blizzard",
+        "snowstorm",
+        "snowing",
+        "flurries",
+        "white out",
+        "winter storm"
+      ]
+    }
+  },
+  "environment": {
+    "city_street": {
+      "positives": {
+        "global": [
+          "urban city street scene",
+          "tall buildings lining street",
+          "busy pedestrian sidewalk",
+          "active traffic on city road",
+          "commercial storefronts visible",
+          "dense urban environment"
+        ],
+        "objects_details": [
+          "street sign mounted on pole",
+          "traffic light at intersection",
+          "bus stop shelter structure",
+          "trash bin on sidewalk edge",
+          "bicycle rack near building",
+          "outdoor cafe seating area"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "intersection",
+        "crosswalk",
+        "road",
+        "pavement",
+        "downtown",
+        "urban",
+        "sidewalk",
+        "street",
+        "city"
+      ]
+    },
+    "highway": {
+      "positives": {
+        "global": [
+          "wide multi-lane highway road",
+          "high speed traffic flowing",
+          "open highway stretching ahead",
+          "highway overpass structure above",
+          "road barriers on both sides",
+          "long straight road perspective"
+        ],
+        "objects_details": [
+          "highway speed limit sign",
+          "lane divider road markings",
+          "highway exit ramp ahead",
+          "overhead directional gantry sign",
+          "road reflector markers",
+          "guardrail along highway edge"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "expressway",
+        "motorway",
+        "overpass",
+        "freeway",
+        "interstate"
+      ]
+    },
+    "residential": {
+      "positives": {
+        "global": [
+          "quiet residential neighborhood street",
+          "suburban houses along road",
+          "low traffic calm road",
+          "front yard grass visible",
+          "family neighborhood atmosphere",
+          "tree-lined residential street"
+        ],
+        "objects_details": [
+          "mailbox at house entrance",
+          "driveway leading to garage",
+          "lawn beside residential road",
+          "neighborhood street lamp post",
+          "children playing in yard",
+          "parked bicycle near house"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "suburb",
+        "housing",
+        "front yard",
+        "neighborhood",
+        "backyard"
+      ]
+    },
+    "nature": {
+      "aliases": [
+        "outdoor",
+        "field",
+        "forest",
+        "park",
+        "countryside",
+        "rural",
+        "wilderness",
+        "meadow",
+        "hill",
+        "mountain",
+        "beach",
+        "lake",
+        "river",
+        "pond",
+        "valley",
+        "plain",
+        "grass",
+        "farmland"
+      ],
+      "positives": {
+        "global": [
+          "natural outdoor environment visible",
+          "open natural landscape stretching ahead",
+          "vegetation and terrain dominating scene",
+          "sky visible above wide natural scene",
+          "natural ground surface underfoot",
+          "open space with natural elements everywhere"
+        ],
+        "objects_details": [
+          "trees and dense vegetation in background",
+          "natural ground dirt or grass surface",
+          "open sky above wide landscape",
+          "natural terrain features visible",
+          "wildlife or animals in natural setting",
+          "plants and foliage filling scene"
+        ]
+      }
+    }
+  },
+  "season": {
+    "winter": {
+      "positives": {
+        "global": [
+          "bare leafless winter trees",
+          "cold stark winter atmosphere",
+          "frost on window surfaces",
+          "heavy winter clothing worn by people",
+          "frozen lake or pond visible",
+          "winter holiday decorations present",
+          "bare skeletal tree branches against gray winter sky",
+          "frost crystals visible on all outdoor surfaces",
+          "people bundled in heavy winter coats and scarves",
+          "breath vapor clouds clearly visible in cold air",
+          "frozen ground hard and unyielding underfoot"
+        ],
+        "atmospheric_effects": [
+          "cold breath vapor visible in air",
+          "gray winter overcast sky",
+          "short winter daylight duration",
+          "icy wind chill in scene",
+          "frozen puddles with cracked ice surface visible",
+          "ice crystals forming on all window edges",
+          "leafless silhouettes of all deciduous trees",
+          "cold breath vapor puffing with every exhalation"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "freezing",
+        "cold season",
+        "cold weather",
+        "wintertime",
+        "below freezing",
+        "winter season",
+        "dead of winter"
+      ]
+    },
+    "summer": {
+      "positives": {
+        "global": [
+          "lush full green foliage",
+          "long warm summer daylight",
+          "people in light summer clothing",
+          "vibrant saturated summer colors",
+          "full leafy trees and plants",
+          "outdoor summer activity scene",
+          "dense full green canopy covering overhead completely",
+          "people dressed in shorts and light summer clothing",
+          "long summer evening light lasting very late",
+          "flowers in full bloom lining all pathways",
+          "insects and wildlife visibly active in warmth"
+        ],
+        "atmospheric_effects": [
+          "hot hazy summer air shimmer",
+          "bright blue cloudless summer sky",
+          "strong intense summer sunlight",
+          "summer thunderstorm clouds building",
+          "heat haze shimmering above hot dry pavement",
+          "deep saturated blue summer sky overhead",
+          "cumulus clouds building for afternoon thunderstorm",
+          "bright summer light washing out all soft shadows"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "summer day",
+        "summertime",
+        "midsummer",
+        "warm weather",
+        "hot weather",
+        "heat wave",
+        "summer season"
+      ]
+    },
+    "autumn": {
+      "positives": {
+        "global": [
+          "orange red fallen leaves everywhere",
+          "autumn foliage color display",
+          "bare branches beginning to show",
+          "cool autumn light quality",
+          "fallen leaves covering sidewalk",
+          "harvest season outdoor scene",
+          "orange red and yellow leaves carpeting ground",
+          "trees at absolute peak fall color display",
+          "fallen leaf piles visible at every corner",
+          "cooler lower slant of afternoon autumn light"
+        ],
+        "atmospheric_effects": [
+          "cool crisp autumn air feeling",
+          "golden warm autumn afternoon light",
+          "morning autumn mist in scene",
+          "overcast autumn sky above",
+          "golden warm light unique to low autumn sun angle",
+          "morning frost visible on all fallen leaves",
+          "leaves drifting and swirling in cool breeze",
+          "crisp cool air quality visible in scene atmosphere"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "fall season",
+        "foliage season",
+        "fall",
+        "autumn season",
+        "harvest season",
+        "leaf season"
+      ]
+    },
+    "spring": {
+      "positives": {
+        "global": [
+          "fresh new green leaves emerging",
+          "blooming flowers on trees",
+          "cherry blossoms visible on branches",
+          "bright cheerful spring colors",
+          "green grass growing everywhere",
+          "spring renewal outdoor scene",
+          "fresh bright green new growth emerging everywhere",
+          "blossoms opening on all flowering trees",
+          "muddy ground from snowmelt and spring rain",
+          "birds building nests and singing actively"
+        ],
+        "atmospheric_effects": [
+          "gentle warm spring breeze",
+          "partly cloudy soft spring sky",
+          "fresh clean air after spring rain",
+          "warm soft spring sunlight",
+          "pollen haze faintly visible in spring air",
+          "soft spring shower wetting all fresh new leaves",
+          "rainbow visible after passing spring rain shower"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "spring season",
+        "spring day",
+        "early spring",
+        "springtime",
+        "spring thaw"
+      ]
+    }
+  },
+  "time_of_day": {
+    "night": {
+      "positives": {
+        "global": [
+          "dark nighttime outdoor scene",
+          "quiet night street atmosphere",
+          "city lit at night scene",
+          "full darkness surrounding area",
+          "late night empty street",
+          "dark silhouettes against light",
+          "city glittering with countless individual light points",
+          "inky black sky above all lit streets below",
+          "pools of warm lamplight alternating with deep shadows",
+          "illuminated storefronts lining otherwise dark street",
+          "long exposure light trails from moving cars"
+        ],
+        "lighting": [
+          "street lights casting warm glow",
+          "artificial light sources active",
+          "headlights on approaching vehicle",
+          "lit windows in buildings",
+          "security lights switched on",
+          "neon sign glow in dark",
+          "warm orange sodium vapor lamp glow overhead",
+          "cool blue-white LED streetlight beam below",
+          "car headlights washing road surface in white light",
+          "neon signage casting vivid colored light nearby",
+          "moonlight providing faint diffuse silver glow",
+          "spill light from shop windows pooling on pavement"
+        ],
+        "atmospheric_effects": [
+          "dark sky with visible stars",
+          "moon illuminating night scene",
+          "night fog under street lights",
+          "cool dark nighttime atmosphere",
+          "light pollution creating orange dome above city",
+          "stars obscured entirely by city light pollution",
+          "dew forming visibly on all cool night surfaces"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "dark outside",
+        "night time",
+        "nighttime",
+        "midnight",
+        "nightfall",
+        "at night",
+        "late night",
+        "dark",
+        "nightscape",
+        "after dark",
+        "after sunset"
+      ]
+    },
+    "dawn_dusk": {
+      "positives": {
+        "global": [
+          "transitional twilight sky scene",
+          "warm color sky at horizon",
+          "soft warm transitional light",
+          "dramatic sky at day boundary",
+          "hazy warm golden atmosphere",
+          "beautiful sky color gradient",
+          "sky transitioning through orange pink and purple hues",
+          "dramatic sky stealing all focus from foreground",
+          "world caught dramatically between day and night",
+          "long soft raking shadows across all surfaces",
+          "warm backlit subjects silhouetted against glowing sky"
+        ],
+        "lighting": [
+          "low angle sunlight near horizon",
+          "golden hour warm light quality",
+          "long soft shadows cast by sun",
+          "warm pink orange light tone",
+          "extreme low-angle raking sidelight from horizon",
+          "golden hour warmth saturating every visible surface",
+          "lens flare visible from very low sun position",
+          "backlit subjects becoming dramatic dark silhouettes",
+          "warm color cast visible on all white surfaces",
+          "purple-blue shadow areas contrasting warm orange highlights"
+        ],
+        "atmospheric_effects": [
+          "orange red sky at horizon",
+          "purple gradient sky above",
+          "silhouettes against bright horizon",
+          "sun visible near horizon line",
+          "soft dusk glow in scene",
+          "wispy clouds catching vivid pink and orange light",
+          "horizon glowing with concentrated warm color",
+          "birds silhouetted dramatically against colorful sky",
+          "mist catching and scattering golden light dramatically",
+          "water surface perfectly reflecting full sky color palette"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "golden hour",
+        "sunset",
+        "dawn",
+        "magic hour",
+        "dusk",
+        "early morning light",
+        "sunrise",
+        "twilight",
+        "late evening"
+      ]
+    },
+    "daytime": {
+      "positives": {
+        "global": [
+          "bright daytime outdoor scene",
+          "full natural daylight filling scene",
+          "clear daytime atmosphere",
+          "normal color temperature outdoors",
+          "bright outdoor environment",
+          "midday high light quality",
+          "full daytime activity visible throughout scene",
+          "vibrant daytime colors in full natural light",
+          "open sky and direct sunlight filling entire scene",
+          "people going about everyday normal daytime activities",
+          "normal everyday well-lit outdoor environment"
+        ],
+        "lighting": [
+          "bright overhead sunlight",
+          "sharp daylight shadows visible",
+          "sun visible high in sky",
+          "daylight through window glass"
+        ],
+        "atmospheric_effects": [
+          "blue sky with white clouds",
+          "clear daytime air visibility",
+          "natural daytime color rendering",
+          "crisp sharp outdoor details"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "daytime",
+        "day",
+        "afternoon",
+        "during the day",
+        "midday",
+        "bright day",
+        "broad daylight",
+        "daylight",
+        "morning"
+      ]
+    }
+  },
+  "weather": {
+    "rainy": {
+      "positives": {
+        "global": [
+          "rain falling on street",
+          "overcast stormy sky above",
+          "dark wet outdoor environment",
+          "heavy downpour from sky",
+          "rain blur reducing visibility",
+          "stormy rainy atmosphere",
+          "soaked pedestrians huddling under umbrellas",
+          "cars spraying water from thoroughly soaked roads",
+          "gray wet miserable outdoor atmosphere overall",
+          "water sheeting off every exposed surface",
+          "umbrellas dotting rainy street scene",
+          "everyone and everything visibly rain-soaked"
+        ],
+        "lighting": [
+          "diffused gray light from clouds",
+          "dim ambient rainy light",
+          "no direct sunlight in rain",
+          "muted flat lighting tone",
+          "diffused gray light from thick storm clouds",
+          "no direct sunlight in rainy conditions",
+          "dim ambient light throughout entire wet scene",
+          "headlights reflecting clearly off wet road surface"
+        ],
+        "surfaces": [
+          "wet pavement reflecting light",
+          "puddles forming on sidewalk",
+          "water droplets on window glass",
+          "soaked ground surface texture",
+          "water running along curb edge",
+          "deep puddles forming at all low points",
+          "water streaming fast along curb edges",
+          "soaked ground no longer absorbing heavy rainfall",
+          "mud visible on all unpaved surfaces",
+          "wet leaves plastered flat to pavement"
+        ],
+        "atmospheric_effects": [
+          "rain streaks in mid-air",
+          "splashing water from puddles",
+          "rain-soaked clothing on person",
+          "umbrella carried by pedestrian",
+          "gray storm clouds overhead",
+          "rain curtain reducing far distance visibility",
+          "mist rising from warm wet pavement surface",
+          "spray thrown up by every passing car",
+          "gutters running fast with heavy overflow water",
+          "rain droplets visible mid-air near camera",
+          "umbrella canopies bobbing in moving crowd"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "downpour",
+        "stormy",
+        "wet weather",
+        "rainstorm",
+        "drizzle",
+        "precipitating",
+        "rain storm",
+        "shower",
+        "pouring",
+        "sprinkling",
+        "raining",
+        "rainfall"
+      ]
+    },
+    "snowy": {
+      "positives": {
+        "global": [
+          "snow covering all surfaces",
+          "white snowy winter scene",
+          "everything blanketed in snow",
+          "cold snowy outdoor atmosphere",
+          "pristine white snow accumulation",
+          "heavy snow falling from sky",
+          "fresh snow blanketing every horizontal surface",
+          "world transformed entirely to white by snowfall",
+          "snow piling on all parked cars and ledges",
+          "everything coated in even unbroken white layer",
+          "deep snow making all movement visibly difficult",
+          "snow accumulating rapidly on every surface"
+        ],
+        "lighting": [
+          "flat white diffused snow light",
+          "cold blue winter light tone",
+          "snow brightening ambient scene",
+          "overcast gray winter sky light",
+          "bright highly reflective white snow surface",
+          "blue-tinted shadow areas on snow surface",
+          "overcast sky providing perfectly flat even light",
+          "headlights picking out individual falling snowflakes"
+        ],
+        "surfaces": [
+          "snow-packed road surface",
+          "frost covering sidewalk",
+          "icy slippery road texture",
+          "snowplow clearing road path",
+          "snow piled beside road edge",
+          "pristine unbroken snow surface stretching ahead",
+          "shoveled snow piled high at road edge",
+          "compacted snow turned to hard dangerous ice on walkway",
+          "slippery packed snow covering entire road surface",
+          "snow chains visible on vehicle tires"
+        ],
+        "atmospheric_effects": [
+          "snowflakes drifting in air",
+          "blizzard reducing scene visibility",
+          "cold breath visible as vapor",
+          "icy wind blowing snow sideways",
+          "snowstorm obscuring background",
+          "individual snowflakes clearly visible near camera",
+          "snow swirling dramatically in strong gusts of wind",
+          "breath condensation clearly visible in cold air",
+          "blizzard reducing visibility close to zero",
+          "snow sticking visibly to clothing and hair",
+          "heavy snow weighing down tree branches severely"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "wintry",
+        "snowfall",
+        "snow covered",
+        "snowed in",
+        "icy",
+        "blizzard",
+        "snowstorm",
+        "snowing",
+        "flurries",
+        "white out",
+        "winter storm"
+      ]
+    },
+    "foggy": {
+      "positives": {
+        "global": [
+          "thick fog filling entire scene",
+          "very low visibility atmosphere",
+          "hazy foggy outdoor environment",
+          "gray white fog color tone",
+          "ghostly foggy scene appearance",
+          "fog reducing color saturation",
+          "scene dissolving into white haze beyond short distance",
+          "only nearest objects remaining fully visible",
+          "fog erasing all background detail completely",
+          "silhouettes barely visible in thick dense fog",
+          "world wrapped in impenetrable cottony white fog",
+          "dreamlike soft-edged foggy atmosphere throughout"
+        ],
+        "lighting": [
+          "soft halo around street lights in fog",
+          "diffused light scattered by fog",
+          "no harsh shadows in foggy scene",
+          "milky white ambient fog light",
+          "light scattered uniformly by dense fog particles",
+          "halos blooming visibly around every light source",
+          "no directional shadows present in foggy scene",
+          "ghostly glow emanating from all hidden light sources"
+        ],
+        "surfaces": [
+          "wet surface from fog condensation",
+          "damp road in foggy morning",
+          "moisture on ground from mist",
+          "fog-dampened sidewalk surface",
+          "condensation droplets covering all cold surfaces",
+          "road surface damp and shiny from fog moisture",
+          "leaves dripping steadily with fog condensation",
+          "all metal surfaces beaded with moisture droplets"
+        ],
+        "atmospheric_effects": [
+          "dense fog layer obscuring scene",
+          "mist hovering above ground",
+          "objects fading into fog distance",
+          "fog bank rolling across road",
+          "morning mist in valley scene",
+          "fog tendrils moving slowly in perfectly still air",
+          "traffic barely visible as blurred distant lights",
+          "pedestrians appearing as ghostly indistinct shapes",
+          "fog thickening visibly toward distant horizon",
+          "ground fog pooling deeply in all low areas",
+          "sound muffled and deadened by dense fog layer"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "mist",
+        "low visibility",
+        "thick fog",
+        "misty",
+        "smoggy",
+        "hazy",
+        "haze",
+        "dense fog",
+        "murky"
+      ]
+    },
+    "overcast": {
+      "positives": {
+        "global": [
+          "gray overcast sky above scene",
+          "heavy cloud cover blocking sun",
+          "dull muted color tone overall",
+          "flat even outdoor lighting",
+          "dark cloud layer overhead",
+          "shadowless overcast scene",
+          "flat muted gray color palette dominating entire scene",
+          "heavy oppressive gray sky filling entire frame",
+          "everything desaturated under thick solid cloud cover",
+          "somber moody overcast sky creating bleak atmosphere",
+          "bleak uniform gray light throughout scene",
+          "dull lifeless overcast atmosphere everywhere"
+        ],
+        "lighting": [
+          "flat diffused light from clouds",
+          "no direct cast shadows visible",
+          "soft even ambient light level",
+          "low contrast lighting condition",
+          "perfectly even light casting absolutely zero shadows",
+          "soft diffused light from thick solid cloud layer",
+          "cool blue-gray color temperature throughout scene",
+          "shadowless even illumination covering entire scene"
+        ],
+        "surfaces": [
+          "damp ground from recent clouds",
+          "muted road color in overcast",
+          "flat sidewalk tone in gray light",
+          "low contrast surface texture",
+          "muted road color completely lacking contrast",
+          "desaturated pavement tone under heavy gray sky",
+          "flat toneless surfaces in diffused overcast light",
+          "damp-looking surface from recent cloud moisture"
+        ],
+        "atmospheric_effects": [
+          "milky white overcast sky",
+          "even light distribution across scene",
+          "muted color palette in clouds",
+          "oppressive gray cloud ceiling",
+          "low ceiling of gray cloud pressing visibly down",
+          "horizon merging indistinguishably with cloud base",
+          "dark threatening clouds promising approaching rain",
+          "light drizzle barely visible in gray air"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "gloomy",
+        "cloud cover",
+        "grey sky",
+        "gray sky",
+        "leaden sky",
+        "heavily clouded",
+        "cloudy",
+        "dull",
+        "dark clouds"
+      ]
+    },
+    "clear": {
+      "positives": {
+        "global": [
+          "bright clear sunny outdoor scene",
+          "vivid saturated color palette",
+          "cloudless open blue sky",
+          "high contrast sunny environment",
+          "warm golden sunlight tone",
+          "crisp clear air visibility",
+          "vivid saturated colors under bright direct sunlight",
+          "sharp crisp edges visible on all scene objects",
+          "long clear sightlines extending to far horizon",
+          "vibrant deep blue sky dominating upper frame",
+          "everything lit warmly by strong direct sunlight",
+          "joyful bright clear day atmosphere throughout"
+        ],
+        "lighting": [
+          "strong direct sunlight beam",
+          "sharp defined shadows cast",
+          "sun glare on reflective surface",
+          "bright overhead daylight angle",
+          "harsh midday sunlight creating deep dark shadows",
+          "warm golden afternoon sidelight on all subjects",
+          "sun glare visible on all glass and metal surfaces",
+          "specular highlights appearing on all shiny surfaces"
+        ],
+        "surfaces": [
+          "sun-warmed dry pavement",
+          "bright lit sidewalk surface",
+          "dry clear road in sunlight",
+          "sharp shadow pattern on ground",
+          "dry dust rising from unpaved dry surfaces",
+          "heat shimmer visible above sun-baked pavement",
+          "sun-bleached road markings clearly visible",
+          "warm dry pavement radiating stored heat upward"
+        ],
+        "atmospheric_effects": [
+          "blue sky with no clouds",
+          "clear high air visibility",
+          "golden warm sunlight atmosphere",
+          "bright ambient daylight filling scene",
+          "distant mountains or buildings sharply visible",
+          "birds soaring in clear deep blue sky",
+          "vapor trail from high aircraft in clear sky",
+          "crystal clear air showing full scene depth"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "sunny day",
+        "bright",
+        "cloudless",
+        "sunny",
+        "clear weather",
+        "sunlit",
+        "bright day",
+        "fair weather",
+        "sun",
+        "fine day",
+        "sunshine",
+        "clear sky"
+      ]
+    },
+    "partly_cloudy": {
+      "positives": {
+        "global": [
+          "partly cloudy mixed sky scene",
+          "intermittent cloud and sunshine",
+          "variable light condition outdoors",
+          "scattered cloud cover above",
+          "changing light as clouds pass",
+          "mixed weather sky appearance"
+        ],
+        "lighting": [
+          "dappled light through passing clouds",
+          "intermittent bright sun patches",
+          "variable shadow intensity outdoors",
+          "soft diffused cloud light"
+        ],
+        "surfaces": [
+          "alternating lit and shaded surfaces",
+          "variable brightness road texture"
+        ],
+        "atmospheric_effects": [
+          "white cumulus clouds drifting",
+          "blue sky visible between clouds",
+          "soft passing cloud shadows",
+          "light breeze moving clouds across sky"
+        ]
+      },
+      "negatives": {},
+      "aliases": [
+        "broken clouds",
+        "mixed clouds",
+        "partly sunny",
+        "scattered clouds",
+        "partially cloudy",
+        "some clouds",
+        "variable clouds"
+      ]
+    }
+  }
+}

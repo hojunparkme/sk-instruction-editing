@@ -1,0 +1,10 @@
+{
+  "description": "Fixed per-condition target captions used for CLIPout. Identical for all methods.",
+  "captions": {
+    "rainy": "a rainy scene with rain falling, dark storm clouds, wet surfaces, and puddles",
+    "snowy": "a snowy scene with heavy snowfall, snow accumulation, and a cold winter atmosphere",
+    "foggy": "a foggy scene with dense fog, low visibility, and a misty hazy atmosphere",
+    "night": "a nighttime scene with darkness, artificial lights, and deep shadows",
+    "clear": "a clear sunny day with a bright blue sky, sunlight, and high visibility"
+  }
+}
