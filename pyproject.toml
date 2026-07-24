@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sk-instruction-editing"
+version = "0.1.0"
+description = "Training-free structured-knowledge instruction generation for image editing"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Park Ho Jun"}]
+dependencies = [
+  "numpy>=1.24,<3",
+  "scipy>=1.11,<2",
+  "matplotlib>=3.7,<4",
+  "Pillow>=10,<13",
+  "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+generation = [
+  "torch>=2.1,<3",
+  "torchvision>=0.16,<1",
+  "diffusers>=0.31,<1",
+  "transformers>=4.45,<5",
+  "accelerate>=0.34,<2",
+  "bitsandbytes>=0.43,<1",
+  "sentencepiece>=0.2,<1",
+  "safetensors>=0.4,<1",
+  "tqdm>=4.66,<5",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

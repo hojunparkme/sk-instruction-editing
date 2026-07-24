@@ -1,19 +1,17 @@
 ================================================================================
 SCOPE OF THIS LICENSE
 
-The MIT License below applies to the SOURCE CODE in this repository only:
-`src/`, `analysis/`, `figures/`, `tools/`, and `config.py`.
+The MIT License below applies to the source code in this repository, including
+`src/`, `scripts/`, `analysis/`, and `figures/`.
 
-It does NOT apply to the contents of `data/` or `results/`. In particular,
+It does not replace third-party data or model licenses. In particular,
 `data/emu_edit_weather_final.json` is a derivative of the Emu Edit test set and
-is licensed CC BY-NC 4.0 (non-commercial use only).
-
-See `data/NOTICE.md` for full data licensing and attribution.
+is distributed under CC BY-NC 4.0. See `data/NOTICE.md`.
 ================================================================================
 
 MIT License
 
-Copyright (c) 2026 <AUTHORS>
+Copyright (c) 2026 Park Ho Jun
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

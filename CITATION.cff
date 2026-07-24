@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software or the released result records, please cite this repository."
+title: "Training-Free Structured Knowledge-Augmented Instruction Generation for Image Editing"
+type: software
+authors:
+  - family-names: Park
+    given-names: Ho Jun
+repository-code: "https://github.com/hojunparkme/sk-instruction-editing"
+version: 0.1.0
+date-released: 2026-07-24
+license: MIT

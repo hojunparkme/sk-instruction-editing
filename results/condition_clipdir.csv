@@ -1,0 +1,46 @@
+backbone,condition,method,n,clip_dir_common
+FLUX Kontext,rainy,Simple,28,0.158536
+FLUX Kontext,rainy,LLM-only,28,0.164911
+FLUX Kontext,rainy,SK+Filter,28,0.191158
+FLUX Kontext,rainy,SK+LLM,28,0.188690
+InstructPix2Pix,rainy,Simple,28,0.103064
+InstructPix2Pix,rainy,MGIE,28,0.107982
+InstructPix2Pix,rainy,LLM-only,28,0.116075
+InstructPix2Pix,rainy,SK+Filter,28,0.107821
+InstructPix2Pix,rainy,SK+LLM,28,0.126904
+FLUX Kontext,snowy,Simple,19,0.241911
+FLUX Kontext,snowy,LLM-only,19,0.236844
+FLUX Kontext,snowy,SK+Filter,19,0.241521
+FLUX Kontext,snowy,SK+LLM,19,0.248037
+InstructPix2Pix,snowy,Simple,19,0.079468
+InstructPix2Pix,snowy,MGIE,19,0.066200
+InstructPix2Pix,snowy,LLM-only,19,0.062405
+InstructPix2Pix,snowy,SK+Filter,19,0.024416
+InstructPix2Pix,snowy,SK+LLM,19,0.053563
+FLUX Kontext,foggy,Simple,4,0.091900
+FLUX Kontext,foggy,LLM-only,4,0.070633
+FLUX Kontext,foggy,SK+Filter,4,0.132992
+FLUX Kontext,foggy,SK+LLM,4,0.151258
+InstructPix2Pix,foggy,Simple,4,0.169700
+InstructPix2Pix,foggy,MGIE,4,0.093150
+InstructPix2Pix,foggy,LLM-only,4,0.108600
+InstructPix2Pix,foggy,SK+Filter,4,0.120300
+InstructPix2Pix,foggy,SK+LLM,4,0.099400
+FLUX Kontext,night,Simple,41,0.142258
+FLUX Kontext,night,LLM-only,41,0.148454
+FLUX Kontext,night,SK+Filter,41,0.174011
+FLUX Kontext,night,SK+LLM,41,0.173125
+InstructPix2Pix,night,Simple,33,0.078055
+InstructPix2Pix,night,MGIE,33,0.115464
+InstructPix2Pix,night,LLM-only,33,0.106527
+InstructPix2Pix,night,SK+Filter,33,0.111788
+InstructPix2Pix,night,SK+LLM,33,0.099082
+FLUX Kontext,clear,Simple,15,0.111800
+FLUX Kontext,clear,LLM-only,15,0.091536
+FLUX Kontext,clear,SK+Filter,15,0.115891
+FLUX Kontext,clear,SK+LLM,15,0.122440
+InstructPix2Pix,clear,Simple,15,0.068407
+InstructPix2Pix,clear,MGIE,15,0.059987
+InstructPix2Pix,clear,LLM-only,15,0.092407
+InstructPix2Pix,clear,SK+Filter,15,0.092220
+InstructPix2Pix,clear,SK+LLM,15,0.080373

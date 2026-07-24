@@ -1,0 +1,2 @@
+shared_samples,flux_clipdir_valid,ip2p_clipdir_valid,note
+102,99,99,Controls sample composition only; editor-specific VLM and prompt configurations differ between backbone evaluations.

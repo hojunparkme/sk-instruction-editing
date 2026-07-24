@@ -1,116 +1,213 @@
-"""
-Paired statistics reported in the paper.
+"""Recompute the paired statistics reported for FLUX and IP2P.
 
-FLUX: the three seed-level scores of each sample are averaged first, then
-sample-level paired tests are run (bootstrap CI + Wilcoxon signed-rank).
-IP2P: single seed, so sample-level values are used directly.
-
-Usage:
-    python statistics.py flux_results.json ip2p_results.json
+FLUX scores are first averaged across seeds for each sample, then paired tests
+are performed over samples. IP2P uses one seed and is tested directly over
+samples. The matched-subset analysis controls sample composition only; it does
+not isolate the editing backbone because the two evaluations used editor-
+specific scene-description and instruction-generation configurations.
 """
-import json, sys
+
+from __future__ import annotations
+
+import argparse
+import csv
+import itertools
+import json
+from dataclasses import asdict, dataclass
+from pathlib import Path
+
 import numpy as np
 from scipy import stats
 
+from sk_editing.io import load_json
+from sk_editing.results import flux_sample_means, ip2p_values
+
 N_BOOT = 10_000
-SEED   = 42
+BOOTSTRAP_SEED = 42
 
 
-def bootstrap_ci(diffs, n_boot=N_BOOT, seed=SEED):
-    rng = np.random.default_rng(seed)
-    boot = [np.mean(rng.choice(diffs, len(diffs), replace=True)) for _ in range(n_boot)]
-    return np.percentile(boot, 2.5), np.percentile(boot, 97.5)
+@dataclass(frozen=True)
+class PairedTest:
+    section: str
+    metric: str
+    comparison: str
+    n: int
+    mean_difference: float
+    ci_low: float
+    ci_high: float
+    wilcoxon_p: float
 
 
-def _valid(v):
-    return v is not None and not (isinstance(v, float) and np.isnan(v))
+def bootstrap_ci(differences: np.ndarray, *, n_boot: int = N_BOOT) -> tuple[float, float]:
+    rng = np.random.default_rng(BOOTSTRAP_SEED)
+    # Keep the original resampling order so the released confidence intervals
+    # reproduce the archived analysis exactly.
+    bootstrap_means = [
+        np.mean(rng.choice(differences, len(differences), replace=True))
+        for _ in range(n_boot)
+    ]
+    low, high = np.percentile(bootstrap_means, [2.5, 97.5])
+    return float(low), float(high)
 
 
-def flux_sample_means(rows, field):
-    """Average the seed-level scores per sample."""
-    acc = {}
-    for r in rows:
-        v = r.get(field)
-        if _valid(v):
-            acc.setdefault(r["hash"], []).append(v)
-    return {h: float(np.mean(vs)) for h, vs in acc.items()}
+def paired_test(
+    section: str,
+    metric: str,
+    comparison: str,
+    left: dict[str, float],
+    right: dict[str, float],
+) -> PairedTest:
+    keys = [key for key in left if key in right]
+    if not keys:
+        raise ValueError(f"No paired samples for {section}: {comparison} ({metric})")
+    differences = np.asarray([left[key] - right[key] for key in keys], dtype=float)
+    low, high = bootstrap_ci(differences)
+    if np.allclose(differences, 0):
+        p_value = 1.0
+    else:
+        p_value = float(stats.wilcoxon(differences).pvalue)
+    return PairedTest(
+        section=section,
+        metric=metric,
+        comparison=comparison,
+        n=len(keys),
+        mean_difference=float(differences.mean()),
+        ci_low=low,
+        ci_high=high,
+        wilcoxon_p=p_value,
+    )
 
 
-def paired_report(label, a, b):
-    """a, b: dict hash -> value. Reports mean(a-b), 95% CI, Wilcoxon p."""
-    keys = [h for h in a if h in b]
-    d = np.array([a[h] - b[h] for h in keys])
-    lo, hi = bootstrap_ci(d)
-    p = stats.wilcoxon(d).pvalue
-    print(f"{label:<42} N={len(d):>4}  diff={np.mean(d):+.4f}  "
-          f"95% CI [{lo:+.4f}, {hi:+.4f}]  p={p:.6f}")
-    return np.mean(d), lo, hi, p
+def calculate(flux_rows: list[dict], ip2p_rows: list[dict]) -> list[PairedTest]:
+    output: list[PairedTest] = []
 
+    for metric in ("clip_dir_common", "clip_out"):
+        values = {
+            key: flux_sample_means(flux_rows, f"{key}_{metric}")
+            for key in ("simple", "llm", "kg", "kg_nofilter")
+        }
+        output.extend(
+            [
+                paired_test(
+                    "FLUX", metric, "SK+LLM vs LLM-only",
+                    values["kg_nofilter"], values["llm"],
+                ),
+                paired_test(
+                    "FLUX", metric, "SK+LLM vs Simple",
+                    values["kg_nofilter"], values["simple"],
+                ),
+                paired_test(
+                    "FLUX", metric, "SK+LLM vs SK+Filter",
+                    values["kg_nofilter"], values["kg"],
+                ),
+            ]
+        )
 
-def main():
-    flux_path = sys.argv[1] if len(sys.argv) > 1 else "flux_results.json"
-    ip2p_path = sys.argv[2] if len(sys.argv) > 2 else "ip2p_results.json"
-
-    flux = json.load(open(flux_path))
-    print("=" * 96)
-    print("FLUX Kontext  (seed-averaged per sample, then sample-level paired tests)")
-    print("=" * 96)
-    for metric in ["clip_dir_common", "clip_out"]:
-        print(f"\n--- {metric} ---")
-        m = {k: flux_sample_means(flux, f"{k}_{metric}")
-             for k in ["simple", "llm", "kg", "kg_nofilter"]}
-        paired_report("SK+LLM vs LLM-only",  m["kg_nofilter"], m["llm"])
-        paired_report("SK+LLM vs Simple",    m["kg_nofilter"], m["simple"])
-        paired_report("SK+LLM vs SK+Filter", m["kg_nofilter"], m["kg"])
-
-    ip2p = json.load(open(ip2p_path))
-    print("\n" + "=" * 96)
-    print("InstructPix2Pix  (single seed)")
-    print("=" * 96)
-
-    def ip2p_vals(method, metric):
-        out = {}
-        for r in ip2p:
-            if metric == "clip_dir_common":
-                v = r.get(f"{method}_clip_dir_common")
+    labels = {
+        "simple": "Simple",
+        "mgie_style": "MGIE",
+        "llm_only": "LLM-only",
+        "kg_llm": "SK+Filter",
+        "kg_llm_nofilter": "SK+LLM",
+    }
+    for metric in ("clip_dir_common", "clip_out"):
+        cached = {key: ip2p_values(ip2p_rows, key, metric) for key in labels}
+        for first, second in itertools.combinations(labels, 2):
+            # Orient comparisons involving the proposed method as SK+LLM minus baseline,
+            # matching the paper text; retain the natural order for all other pairs.
+            if second == "kg_llm_nofilter":
+                left, right = second, first
             else:
-                v = r.get(method, {}).get(metric)
-            if _valid(v):
-                out[r["hash"]] = v
-        return out
+                left, right = first, second
+            output.append(
+                paired_test(
+                    "IP2P",
+                    metric,
+                    f"{labels[left]} vs {labels[right]}",
+                    cached[left],
+                    cached[right],
+                )
+            )
 
-    for metric in ["clip_dir_common", "clip_out"]:
-        print(f"\n--- {metric} ---")
-        paired_report("SK+LLM vs LLM-only",
-                      ip2p_vals("kg_llm_nofilter", metric), ip2p_vals("llm_only", metric))
-        paired_report("SK+LLM vs MGIE",
-                      ip2p_vals("kg_llm_nofilter", metric), ip2p_vals("mgie_style", metric))
+    shared = {row["hash"] for row in flux_rows} & {row["hash"] for row in ip2p_rows}
+    flux_shared = [row for row in flux_rows if row["hash"] in shared]
+    flux_sk = flux_sample_means(flux_shared, "kg_nofilter_clip_dir_common")
+    flux_llm = flux_sample_means(flux_shared, "llm_clip_dir_common")
+    ip2p_sk = {
+        key: value
+        for key, value in ip2p_values(ip2p_rows, "kg_llm_nofilter", "clip_dir_common").items()
+        if key in shared
+    }
+    ip2p_llm = {
+        key: value
+        for key, value in ip2p_values(ip2p_rows, "llm_only", "clip_dir_common").items()
+        if key in shared
+    }
+    output.extend(
+        [
+            paired_test(
+                "Matched subset", "clip_dir_common", "FLUX: SK+LLM vs LLM-only",
+                flux_sk, flux_llm,
+            ),
+            paired_test(
+                "Matched subset", "clip_dir_common", "IP2P: SK+LLM vs LLM-only",
+                ip2p_sk, ip2p_llm,
+            ),
+        ]
+    )
+    return output
 
-    # all pairwise comparisons under IP2P (supports the claim in Section 4.3)
-    import itertools
-    LABEL = {"simple": "Simple", "mgie_style": "MGIE", "llm_only": "LLM-only",
-             "kg_llm": "SK+Filter", "kg_llm_nofilter": "SK+LLM"}
-    for metric in ["clip_dir_common", "clip_out"]:
-        print(f"\n--- IP2P all pairwise, {metric} ---")
-        n_sig = 0
-        for a, b in itertools.combinations(LABEL, 2):
-            _, _, _, p = paired_report(f"{LABEL[a]} vs {LABEL[b]}",
-                                       ip2p_vals(a, metric), ip2p_vals(b, metric))
-            n_sig += int(p < 0.05)
-        print(f"  significant pairs at alpha=0.05: {n_sig}/10")
 
-    # matched subset
-    print("\n" + "=" * 96)
-    print("Matched subset shared by both backbones")
-    print("=" * 96)
-    shared = {r["hash"] for r in flux} & {r["hash"] for r in ip2p}
-    print(f"shared samples: {len(shared)}")
-    f = {k: flux_sample_means([r for r in flux if r["hash"] in shared],
-                              f"{k}_clip_dir_common") for k in ["llm", "kg_nofilter"]}
-    paired_report("FLUX  SK+LLM vs LLM-only (CLIPdir)", f["kg_nofilter"], f["llm"])
-    i_n = {h: v for h, v in ip2p_vals("kg_llm_nofilter", "clip_dir_common").items() if h in shared}
-    i_l = {h: v for h, v in ip2p_vals("llm_only", "clip_dir_common").items() if h in shared}
-    paired_report("IP2P  SK+LLM vs LLM-only (CLIPdir)", i_n, i_l)
+def print_report(tests: list[PairedTest]) -> None:
+    current: tuple[str, str] | None = None
+    for test in tests:
+        heading = (test.section, test.metric)
+        if heading != current:
+            print("\n" + "=" * 98)
+            print(f"{test.section} — {test.metric}")
+            print("=" * 98)
+            current = heading
+        p_text = "<0.000001" if test.wilcoxon_p < 0.000001 else f"={test.wilcoxon_p:.6f}"
+        print(
+            f"{test.comparison:<42} N={test.n:>4}  "
+            f"diff={test.mean_difference:+.4f}  "
+            f"95% CI [{test.ci_low:+.4f}, {test.ci_high:+.4f}]  p{p_text}"
+        )
+
+
+def write_csv(path: Path, tests: list[PairedTest]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(asdict(tests[0])))
+        writer.writeheader()
+        writer.writerows(asdict(test) for test in tests)
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--flux", type=Path, default=Path("results/raw/flux_results.json")
+    )
+    parser.add_argument(
+        "--ip2p", type=Path, default=Path("results/raw/ip2p_results.json")
+    )
+    parser.add_argument("--csv", type=Path, help="Optional CSV output path")
+    parser.add_argument("--json", type=Path, help="Optional JSON output path")
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    tests = calculate(load_json(args.flux), load_json(args.ip2p))
+    print_report(tests)
+    if args.csv:
+        write_csv(args.csv, tests)
+    if args.json:
+        args.json.parent.mkdir(parents=True, exist_ok=True)
+        args.json.write_text(
+            json.dumps([asdict(test) for test in tests], indent=2) + "\n",
+            encoding="utf-8",
+        )
 
 
 if __name__ == "__main__":

@@ -1,87 +1,61 @@
 # Data licensing and attribution
 
-The `LICENSE` file at the root of this repository covers **code only**. The
-files in `data/` and `results/` are governed by the terms below.
-
----
+The repository `LICENSE` covers source code only. Data and result records retain the terms described below.
 
 ## Emu Edit annotations
 
 **File:** `data/emu_edit_weather_final.json`
 
-This file is a derivative of the **Emu Edit test set**, released by Meta AI.
+This file is a derivative of the Emu Edit test set released by Meta AI.
 
-- Source: https://huggingface.co/datasets/facebook/emu_edit_test_set
-- Paper: S. Sheynin et al., "Emu Edit: Precise Image Editing via Recognition and
-  Generation Tasks," CVPR 2024.
-- **License: Creative Commons Attribution-NonCommercial 4.0 International
-  (CC BY-NC 4.0)** — https://creativecommons.org/licenses/by-nc/4.0/
+- Source: `facebook/emu_edit_test_set` on Hugging Face
+- Paper: S. Sheynin et al., “Emu Edit: Precise Image Editing via Recognition and Generation Tasks,” CVPR 2024.
+- License: **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**.
 
-**This means the file may not be used for commercial purposes.**
+The derivative may not be used for commercial purposes unless separate permission or alternative licensing is obtained.
 
-### Changes made to the original
+### Modifications
 
-As required by the attribution clause, the modifications are:
+1. The release was filtered to 136 environmental-condition samples: rainy, snowy, foggy, night, and clear.
+2. `kg_condition` and `all_conditions` were added as project annotations.
+3. The original `idx`, `hash`, `instruction`, `input_caption`, and `output_caption` fields were retained.
+4. `image_path` is a local relative reference used by the experiment scripts.
 
-1. **Filtered.** Only environmental-condition samples (rainy, snowy, foggy,
-   night, clear) were retained: 136 of the original examples.
-2. **Fields added.** `kg_condition` and `all_conditions` are our own annotations
-   labelling the target condition of each sample; they are not part of the
-   original release.
-3. **Fields carried over unchanged** from Emu Edit: `idx`, `hash`,
-   `instruction`, `input_caption`, `output_caption`.
+### Not redistributed
 
-### What is *not* redistributed
+No source images are included. Obtain them from the original Emu Edit release and arrange them so the paths in the annotation file can be resolved by `--image-root`.
 
-No images from the Emu Edit test set are included in this repository. The
-`image_path` field is a local filename reference only. To run the generation
-scripts you must obtain the images from the original release above.
+The exact experimental subsets are identified by:
 
-The sample ID lists (`data/flux_sample_ids.json`, `data/ip2p_sample_ids.json`)
-contain only the `hash` identifiers needed to reconstruct our subsets.
+- `data/flux_sample_ids.json`
+- `data/ip2p_sample_ids.json`
 
----
+## Project-authored files
 
-## Our own contributions
+The following are project-authored materials:
 
-The following are our own work and are covered by the repository `LICENSE`:
-
-| File | Notes |
+| File | Description |
 |---|---|
-| `data/structured_repository.json` | The structured knowledge repository (21 condition entries, 498 cues), constructed as described in the paper |
-| `data/clipout_captions.json` | The five fixed per-condition CLIPout target captions |
-| `data/repository_stats.json`, `data/excluded_samples.json` | Summary metadata |
-| `docs/prompts.md` | Prompt templates |
+| `data/structured_repository.json` | 21 condition entries and 498 visual cues |
+| `data/clipout_captions.json` | Fixed per-condition CLIPout captions |
+| `data/repository_stats.json` | Repository summary metadata |
+| `data/excluded_samples.json` | CLIPdir validity counts and notes |
+| `docs/prompts.md` | Prompt templates and recovered repository-construction prompt |
 
-`results/flux_results.json` and `results/ip2p_results.json` contain metric values
-we measured. They were produced by running models over the Emu Edit test images,
-so if you build further datasets from them, apply the CC BY-NC 4.0 terms above
-to be safe.
+## Result records
 
----
+`results/raw/flux_results.json` and `results/raw/ip2p_results.json` contain metric values and generated instruction text from runs over the Emu Edit evaluation samples. They do not contain source or generated image pixels. Because the records are derived from an evaluation built on Emu Edit annotations, downstream users should conservatively retain the CC BY-NC attribution and non-commercial restriction when redistributing derived datasets.
 
-## Third-party components (not redistributed here)
+## Third-party components
 
-Each keeps its own license; obtain them from the original source.
+The following are not redistributed and retain their original licenses:
 
-| Component | Source |
-|---|---|
-| MGIE | Apple — https://github.com/apple/ml-mgie |
-| FLUX.1 Kontext Dev | Black Forest Labs |
-| InstructPix2Pix | Brooks et al. |
-| LLaVA-1.5 | Liu et al. |
-| DeepSeek-R1-Distill-Qwen-32B | DeepSeek |
-| CLIP, DINOv2 | OpenAI, Meta |
-| BDD100K, ACDC | Used only as conceptual references for the condition categories; no data from either is included |
+- FLUX.1 Kontext Dev
+- InstructPix2Pix
+- MGIE and its LLaVA checkpoint
+- LLaVA-1.5
+- DeepSeek-R1-Distill-Qwen-32B
+- CLIP
+- DINOv2
 
----
-
-## Summary
-
-- **Code** (`src/`, `analysis/`, `figures/`, `tools/`, `config.py`) → repository `LICENSE`
-- **Emu Edit derivative** (`data/emu_edit_weather_final.json`) → **CC BY-NC 4.0, non-commercial only**
-- **Model weights and third-party code** → not included; see their own terms
-
-If you intend to use this repository commercially, remove
-`data/emu_edit_weather_final.json` and obtain the Emu Edit data under terms that
-permit your use. Everything else in `data/` is our own work.
+BDD100K and ACDC were conceptual references for selecting condition categories. No images, annotations, or dataset statistics from either dataset are included.

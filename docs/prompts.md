@@ -1,16 +1,10 @@
-# Prompt Templates
+# Prompt templates
 
-All prompts used in the paper, reproduced verbatim from the experiment code.
-Decoding is greedy (`do_sample=False`) throughout.
+This document separates the two editor-specific inference configurations used in the archived experiments. The exact generated instructions are included in `results/raw/`.
 
----
+## 1. FLUX Kontext configuration
 
-## 1. Scene description (Stage 1)
-
-Model: **LLaVA-1.5-7B**. Applied to the input image only — the user request is
-**not** provided at this stage.
-
-Chat format: `USER: <image>\n{CAPTION_PROMPT}\nASSISTANT:`
+### Scene-description prompt
 
 ```text
 Describe this image in 3–5 sentences. Include:
@@ -20,38 +14,16 @@ Describe this image in 3–5 sentences. Include:
 Be specific and concrete. Avoid vague language.
 ```
 
-Generation: `max_new_tokens=200`, `do_sample=False`.
-
----
-
-## 2. Knowledge cue retrieval (Stage 2)
-
-Not a prompt — deterministic keyword/alias matching. Reference implementation
-in `retrieval.py`.
-
-- Groups searched: `condition`, `environment`, `season`, `time_of_day`, `weather`
-- Slot order: `global`, `lighting`, `surfaces`, `atmospheric_effects`, `objects_details`
-- A condition entry matches if its name **or any of its aliases** appears as a
-  substring of the lowercased user request.
-- At most **6 cues per slot**, at most **50 cues total**, de-duplicated,
-  in slot order.
-
----
-
-## 3. Instruction generation (Stage 3)
-
-Model: **DeepSeek-R1-Distill-Qwen-32B**, 4-bit NF4 quantization, greedy decoding.
-A closed reasoning block is prefilled so that generation begins directly with the
-instruction rather than with chain-of-thought text.
-
-### System prompt (shared by all three variants)
+### DeepSeek system prompt
 
 ```text
 You are an expert at writing image editing instructions for FLUX Kontext.
 Output ONLY the final instruction text — no analysis, no JSON, no preamble, no reasoning.
 ```
 
-### 3a. SK+LLM (proposed method — no explicit filtering)
+The FLUX implementation uses greedy decoding and removes `<think>...</think>` and model-control tags during output post-processing.
+
+### SK+LLM
 
 ```text
 Image scene description:
@@ -70,7 +42,7 @@ Write ONE image editing instruction:
 Return only the instruction text.
 ```
 
-### 3b. SK+Filter (ablation — explicit scene-grounded filtering)
+### SK+Filter
 
 ```text
 Image scene description:
@@ -85,13 +57,12 @@ KG candidates:
 Write ONE image editing instruction:
 - 2–3 sentences maximum.
 - Only use KG cues that match objects VISIBLE in the scene description above.
-- Do NOT use cues referencing elements absent from the scene (e.g. no road/asphalt
-  visible → never use 'wet asphalt', 'tire spray', 'road puddles', 'lane markings').
+- Do NOT use cues referencing elements absent from the scene (e.g. no road/asphalt visible → never use 'wet asphalt', 'tire spray', 'road puddles', or 'lane markings').
 - Do NOT include reasoning — just the instruction.
 Return only the instruction text.
 ```
 
-### 3c. LLM-only (baseline — no retrieved cues)
+### LLM-only
 
 ```text
 Image scene description:
@@ -107,21 +78,60 @@ Write ONE image editing instruction:
 Return only the instruction text.
 ```
 
-### 3d. Simple (baseline)
+## 2. InstructPix2Pix configuration
 
-The raw user request is passed to the editing backbone verbatim; no LLM call.
+### Scene-description prompt
 
-> Note: the variable name `KG candidates` is retained from the original
-> implementation; it refers to the retrieved structured-knowledge cues.
+```text
+Describe this image in detail. Include visible objects, people, weather, lighting, and atmosphere.
+```
 
----
+This prompt is run with the LLaVA model distributed as part of the official MGIE setup.
 
-## 4. Repository cue generation (offline, one-time)
+### DeepSeek system prompt
 
-The cue candidates were generated with an LLM (Claude Sonnet) and then reviewed,
-deduplicated, normalized, and organized into the typed slots by the authors.
+```text
+You are an expert at writing image editing instructions for InstructPix2Pix.
+Output ONLY the final instruction text — no analysis, no JSON, no preamble, no reasoning.
+```
 
-System prompt:
+The IP2P implementation uses greedy decoding and appends the following closed reasoning block before generation:
+
+```text
+<think>
+
+</think>
+
+```
+
+The SK+LLM and LLM-only user prompts follow the same logical templates as the FLUX configuration. The IP2P SK+Filter prompt uses the shorter rule below instead of the FLUX-specific road/asphalt example:
+
+```text
+- Only use KG cues that match objects VISIBLE in the scene description above.
+- Do NOT use cues referencing elements absent from the scene.
+```
+
+## 3. Simple baseline
+
+For both backbones, the raw user request is passed to the editor verbatim. No instruction-generation model is called.
+
+## 4. Repository cue retrieval
+
+The released repository is nested under five groups:
+
+```text
+condition / environment / season / time_of_day / weather
+```
+
+Within each entry, positive cues are organized into typed slots. Retrieval is deterministic and collects at most six cues per slot and fifty cues in total.
+
+The FLUX reference implementation matches entry names and aliases against the lowercased user request. The archived IP2P workspace stored an author-reviewed target-condition label for every sample; the cleaned reference script resolves that label against the released nested repository and also reports when request-based matching selects a different set of entries.
+
+## 5. Offline repository-construction prompt
+
+The following prompt was recovered from the project history. It produced an initial cue vocabulary that was subsequently reviewed, expanded, deduplicated, normalized, and reorganized by the authors. It should not be interpreted as a raw one-pass generator of the released 498-cue repository.
+
+### System prompt
 
 ```text
 Rules for cue generation:
@@ -133,7 +143,7 @@ Rules for cue generation:
 Respond ONLY in valid JSON. No preamble, no explanation, no markdown backticks.
 ```
 
-Per-condition request:
+### Per-condition request
 
 ```text
 Generate a Knowledge Graph entry for the weather condition: "{condition}"
@@ -148,28 +158,15 @@ Return ONLY this JSON structure:
     "atmosphere": ["cue1", "cue2", ...],
     "surface": ["cue1", "cue2", ...],
     "objects": ["cue1", "cue2", ...]
-  },
-  ...
+  }
 }
 
 Requirements:
-- 3-5 cues per visual dimension
+- 3–5 cues per visual dimension
 ```
 
-> **Author action required before submission.** The prompt above is recovered from
-> the project history. The generated draft used the slot names
-> `lighting / color / atmosphere / surface / objects`, whereas the released
-> repository uses `global / lighting / surfaces / atmospheric_effects /
-> objects_details`, so the released file reflects the authors' subsequent
-> reorganization and expansion rather than raw model output. Confirm the exact
-> model identifier and access date before release, and state them here.
+The paper identifies the model family as Claude Sonnet. The exact service-side model snapshot is not recoverable from the archived workspace, so the repository does not claim a more specific identifier.
 
----
+## 6. Evaluation captions
 
-## 5. Evaluation captions
-
-- **CLIPdir** uses the Emu Edit `input_caption` (source) and `output_caption`
-  (target) of each sample. These are dataset annotations, identical for every
-  method, and independent of the knowledge repository.
-- **CLIPout** uses five fixed per-condition captions, identical for every method.
-  See `clipout_captions.json`.
+`data/clipout_captions.json` contains the five fixed target-condition captions used by every method for CLIPout. CLIPdir uses the same sample-specific Emu Edit input and output captions for every method.

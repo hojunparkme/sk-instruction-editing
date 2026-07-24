@@ -1,0 +1,2 @@
+# Full image and instruction generation stack.
+-e .[generation]
