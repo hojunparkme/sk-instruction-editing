@@ -58,6 +58,7 @@ def check_required_files() -> None:
         ".gitattributes",
         "assets/framework.png",
         "assets/clipdir_results.png",
+        "assets/qualitative_results.png",
         "data/structured_repository.json",
         "data/clipout_captions.json",
         "data/emu_edit_weather_final.json",
@@ -366,9 +367,14 @@ def check_assets_and_syntax() -> None:
 
     expected_hashes = {
         "framework.png": "9e67985302fe6b290553f0a1d8203a66fde41ae006eafd0e1a28e766a58a0b75",
-        "clipdir_results.png": "257a8c4e6ce485bef50db131067c1a0797d55e827899423d47a0ce5eca46933c",
+        "clipdir_results.png": "07848471f8d986d0e1f3f14e5e304ec157a36418a3a9ffdca6b64eba6ccc6eaf",
+        "qualitative_results.png": "8abb8110a1e9dff29035d26d164127b48dded2da72f3310ee06ee443805ebf4a",
     }
-    for path in (ROOT / "assets/framework.png", ROOT / "assets/clipdir_results.png"):
+    for path in (
+        ROOT / "assets/framework.png",
+        ROOT / "assets/clipdir_results.png",
+        ROOT / "assets/qualitative_results.png",
+    ):
         with Image.open(path) as image:
             require(image.width >= 1200 and image.height >= 400, f"Asset resolution too low: {path.name} {image.size}")
             image.verify()

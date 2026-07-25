@@ -17,6 +17,16 @@ Short requests such as *“make it rainy”* often provide too little visual det
 
 The released repository contains **21 condition entries**, **5 typed cue slots**, and **498 visual cues**. No component is fine-tuned for this task.
 
+## Qualitative results
+
+<p align="center">
+  <img src="assets/qualitative_results.png" alt="Qualitative comparison of Input, Simple, LLM-only, and SK+LLM image-editing results" width="1000">
+</p>
+
+On both rainy-condition examples, **Simple** and **LLM-only** leave the scene largely unchanged. **SK+LLM** supplies concrete condition-specific cues, leading FLUX Kontext to introduce wet surfaces, puddles, reflections, and darker lighting while retaining the main scene structure. The panel is the same qualitative figure used in the manuscript (FLUX Kontext, seed 42).
+
+*The source images are from the Emu Edit test set and remain under CC BY-NC 4.0; this manuscript panel is included for non-commercial research demonstration and attribution.*
+
 ## Main results
 
 ### FLUX Kontext
@@ -92,7 +102,7 @@ Consequently, comparisons **within** each backbone are controlled, while the FLU
 │   ├── export_results.py
 │   └── self_check.py
 ├── analysis/statistics.py      # bootstrap confidence intervals and Wilcoxon tests
-└── figures/                    # reproducible README figures
+└── figures/                    # figure-generation utilities
 ```
 
 The archived result files retain the original workspace field names. [`results/README.md`](results/README.md) maps them to the paper labels.
@@ -149,7 +159,7 @@ python scripts/generate_ip2p.py \
 python scripts/recompute_metrics.py runs/ip2p/manifest.json --device cuda
 ```
 
-Source images, model weights, MGIE code, and generated images are not redistributed. The scripts are cleaned reference implementations; the included sample-level records are the source of truth for the reported numerical tables. See [`docs/reproducibility.md`](docs/reproducibility.md).
+Apart from the manuscript qualitative panel in `assets/qualitative_results.png`, source images and generated image files are not redistributed. Model weights and MGIE code are also not redistributed. The scripts are cleaned reference implementations; the included sample-level records are the source of truth for the reported numerical tables. See [`docs/reproducibility.md`](docs/reproducibility.md).
 
 ## Evaluation design
 

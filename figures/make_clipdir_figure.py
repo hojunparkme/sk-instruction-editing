@@ -1,4 +1,9 @@
-"""Regenerate the shared-reference CLIPdir figure used in the README."""
+"""Regenerate a data-equivalent CLIPdir plot without overwriting the manuscript asset.
+
+The README uses ``assets/clipdir_results.png``, the exact image embedded in the
+manuscript. This utility writes a separately named reproducibility rendering
+because Matplotlib/library versions can change pixel dimensions or compression.
+"""
 import argparse
 from pathlib import Path
 import matplotlib
@@ -41,7 +46,7 @@ for a in axes:
 
 plt.tight_layout(pad=0.4)
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--output", type=Path, default=Path("assets/clipdir_results.png"))
+parser.add_argument("--output", type=Path, default=Path("artifacts/clipdir_results_regenerated.png"))
 args = parser.parse_args()
 args.output.parent.mkdir(parents=True, exist_ok=True)
 fig.savefig(args.output, dpi=300, bbox_inches="tight", facecolor="white")

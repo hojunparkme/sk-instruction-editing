@@ -21,9 +21,11 @@ The derivative may not be used for commercial purposes unless separate permissio
 3. The original `idx`, `hash`, `instruction`, `input_caption`, and `output_caption` fields were retained.
 4. `image_path` is a local relative reference used by the experiment scripts.
 
-### Not redistributed
+### Image redistribution scope
 
-No source images are included. Obtain them from the original Emu Edit release and arrange them so the paths in the annotation file can be resolved by `--image-root`.
+The repository includes one composite manuscript panel, `assets/qualitative_results.png`, containing two Emu Edit source images and the corresponding generated outputs for non-commercial research demonstration. The panel is reproduced unchanged from the manuscript and remains subject to the Emu Edit **CC BY-NC 4.0** terms.
+
+No standalone source-image collection is included. Obtain the full source images from the original Emu Edit release and arrange them so the paths in the annotation file can be resolved by `--image-root`.
 
 The exact experimental subsets are identified by:
 

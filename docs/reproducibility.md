@@ -23,7 +23,7 @@ Regenerating edited images requires:
 - DeepSeek-R1-Distill-Qwen-32B for instruction generation.
 - The official MGIE code, LLaVA weights, and checkpoint for the IP2P configuration and MGIE baseline.
 
-The source images, model weights, MGIE code, and generated images are not redistributed.
+Apart from the manuscript qualitative panel in `assets/qualitative_results.png`, source images and generated image files are not redistributed. Model weights and MGIE code are not redistributed.
 
 ## Clean reference implementation versus archived outputs
 
