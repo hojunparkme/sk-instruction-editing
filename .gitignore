@@ -1,15 +1,36 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments and editors
 .venv/
+venv/
+.env
+.vscode/
+.idea/
 .DS_Store
+Thumbs.db
 
-# large or non-redistributable artifacts
+# Local models, source images, and generated artifacts
 models/
-results/**/*_images/
-results/**/*.png
+runs/
+checkpoints/
 *.pt
+*.pth
+*.ckpt
 *.safetensors
+*.bin
 
-# scratch
+# Interrupted-run scratch files
+*.tmp
 *.before_*.json
 cache.json
+
+# Build outputs
+build/
+dist/
+artifacts/
